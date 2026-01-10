@@ -3,7 +3,7 @@ import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 import eventsArray from './misc'
-import generateTable from './table'
+import GenerateTable from './table'
 
 
 function App() {
@@ -29,7 +29,24 @@ function App() {
             </tr>
         </thead>
         <tbody>
-        	{generateTable(eventsArray)}
+					{eventsArray.map((eventsArray, index) => (
+						<tr key={index}>
+							<td>{(index+1)}</td>
+							<td>event {eventsArray.title}</td>
+							<td>event {eventsArray.description}</td>
+							<td>
+								<div class="form-group">
+                  <input type="comment" class="form-control" name= "<%=event.context_code + num %>" placeholder="Comment"></input>
+                  <button type="button" id="commentBtn" class="btn btn-primary"  >send</button>
+              	</div>
+							</td>
+							<td>event {eventsArray.location_name}</td>
+							<td>event {eventsArray.start_at}</td>
+							<td>event {eventsArray.end_at}</td>
+						</tr>
+								
+									))}
+               
         </tbody>
     </table>
     <button type="button" id="saveBtn" class="btn btn-primary" >send</button>
