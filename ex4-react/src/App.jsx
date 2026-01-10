@@ -65,7 +65,7 @@ function App() {
 		}
 		
 		
-		alert(eventsArray[0].description);
+		alert(eventsArray[1].description);
 	}
 }
 
