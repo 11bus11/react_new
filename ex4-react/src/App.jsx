@@ -4,12 +4,16 @@ import viteLogo from '/vite.svg'
 import './App.css'
 import eventsArray from './misc'
 import GenerateTable from './table'
+import handleClick from './click'
 
 
 function App() {
   const [count, setCount] = useState(0)
 
 
+
+
+	//document.getElementById("btn0").addEventListener(handleClick, alert(newComment);)
 
   return (
     <>
@@ -36,8 +40,8 @@ function App() {
 							<td>event {eventsArray.description}</td>
 							<td>
 								<div class="form-group">
-                  <input type="comment" class="form-control" name= "<%=event.context_code + num %>" placeholder="Comment"></input>
-                  <button type="button" id="commentBtn" class="btn btn-primary"  >send</button>
+                  <input type="comment" id={("input" + index)} class="form-control" placeholder="Comment"></input>
+                  <button type="button" id={("btn" + index)} class="btn btn-primary" onClick={() => handle()}>send</button>
               	</div>
 							</td>
 							<td>event {eventsArray.location_name}</td>
@@ -52,6 +56,13 @@ function App() {
     <button type="button" id="saveBtn" class="btn btn-primary" >send</button>
     </>
   )
+
+	function handle() {
+		
+		
+		const newComment = document.getElementById("input0").value;
+		alert(eventsArray[0] + newComment);
+	}
 }
 
 export default App
