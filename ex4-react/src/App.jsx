@@ -58,10 +58,14 @@ function App() {
   )
 
 	function handle() {
+		for (let i = 0; i < eventsArray.length; i++) {
+			let newComment = document.getElementById("input" + i).value;
+			eventsArray[i].description = (eventsArray[i].description + " Comment: " + newComment)
+
+		}
 		
 		
-		const newComment = document.getElementById("input0").value;
-		alert(eventsArray[0] + newComment);
+		alert(eventsArray[0].description);
 	}
 }
 
