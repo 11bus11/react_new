@@ -7,18 +7,26 @@ import GenerateTable from './table'
 import handleClick from './click'
 
 
+//useEffects for async
+
 function App() {
-  const [count, setCount] = useState(0)
+	const [events, setEvents] = useState([]);
+  	
+	const fetchJson = async () => {
+	const url = 'https://cloud.timeedit.net/ltu/web/schedule1/ri177XQQ760Z50Qv2Q093gZ6y6Y550276Y75Y.json';
+	const response = await fetch(url);
+	const body = await response.json();
+	const items = (body['reservations']);
+	setEvents(items);
+	console.log(items)
 
-
-
-
+}
 	//document.getElementById("btn0").addEventListener(handleClick, alert(newComment);)
 
   return (
     <>
     <h1>Calendar transfer</h1>
-    <h2>Course: D0031N</h2>
+    <h2>Course: </h2>
 		<p>{eventsArray[0].location_name}</p>
     <table class="table">
         <thead>
@@ -41,7 +49,7 @@ function App() {
 							<td>
 								<div class="form-group">
                   <input type="comment" id={("input" + index)} class="form-control" placeholder="Comment"></input>
-                  <button type="button" id={("btn" + index)} class="btn btn-primary" onClick={() => handle()}>send</button>
+                  <button type="button" id={("btn" + index)} class="btn btn-primary" >send</button>
               	</div>
 							</td>
 							<td>event {eventsArray.location_name}</td>
@@ -53,7 +61,7 @@ function App() {
                
         </tbody>
     </table>
-    <button type="button" id="saveBtn" class="btn btn-primary" >send</button>
+    <button type="button" id="saveBtn" class="btn btn-primary" onClick={() => handle()}>send</button>
     </>
   )
 
