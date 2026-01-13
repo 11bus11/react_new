@@ -51,10 +51,7 @@ function App() {
 		}
 	}
 	
-	
-	
-
-  return (
+  	return (
     <>
     <h1>Calendar transfer</h1>
     <h2>Course: {course_id}</h2>
