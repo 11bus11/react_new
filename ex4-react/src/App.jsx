@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
@@ -7,27 +7,41 @@ import GenerateTable from './table'
 import handleClick from './click'
 
 
+	
+  	
+	//document.getElementById("btn0").addEventListener(handleClick, alert(newComment);)
+
+
 //useEffects for async
 
 function App() {
-	const [events, setEvents] = useState([]);
-  	
-	const fetchJson = async () => {
-	const url = 'https://cloud.timeedit.net/ltu/web/schedule1/ri177XQQ760Z50Qv2Q093gZ6y6Y550276Y75Y.json';
-	const response = await fetch(url);
-	const body = await response.json();
-	const items = (body['reservations']);
-	setEvents(items);
-	console.log(items)
-
-}
-	//document.getElementById("btn0").addEventListener(handleClick, alert(newComment);)
+	const [data, setData] = useState([]);
+	const [error, setError] = useState(null);
+	useEffect(() =>{
+		async function getData() {
+			try {
+				const url = 'https://cloud.timeedit.net/ltu/web/schedule1/ri177XQQ760Z50Qv2Q093gZ6y6Y550276Y75Y.json';
+				const response = await fetch(url);
+				if (!response.ok) {
+					throw new Error('Did not work')
+				}
+				const body = await response.json();
+				const items = (body['reservations']);
+				setData(items);
+			} catch (err) {
+				setError(err.message);
+				console.error(error);
+			}
+		};
+		//getData();
+	}, [])
+	console.log(data[0]);
 
   return (
     <>
     <h1>Calendar transfer</h1>
     <h2>Course: </h2>
-		<p>{eventsArray[0].location_name}</p>
+		<p>testing</p>
     <table class="table">
         <thead>
             <tr>
