@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
+import secret from './secret'
 
 
 	
@@ -100,11 +101,34 @@ const eventsArray = [];
 		for (let i = 0; i < eventsArray.length; i++) {
 			let newComment = document.getElementById("input" + i).value;
 			eventsArray[i].description = (eventsArray[i].description + " Comment: " + newComment)
-
+			var jsonData = {
+				"calendar_event": [
+					{
+					"context_code": "hrhrhr", 
+					"title": eventsArray[i].title,
+					"description": eventsArray[i].description,
+					"location_name": eventsArray[i].location_name,
+					"start_at": eventsArray[i].start_at,
+					"end_at": eventsArray[i].end_at,
+					}
+				]
+			}
 		}
-		
+		postData(jsonData);
 		
 		alert(eventsArray[1].description);
+	}
+
+	
+	async function postData(event) {
+		return fetch('https://canvas.instructure.com/api/v1/calendar_events?access_token=$' + secret, {
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json'
+		},
+		body: JSON.stringify({ event })
+		})
+		.then(data => data.json())
 	}
 }
 
