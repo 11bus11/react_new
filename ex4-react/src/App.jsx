@@ -33,15 +33,17 @@ function App() {
 				console.error(error);
 			}
 		};
-		//getData();
+		getData();
 	}, [])
-	console.log(data[0]);
+	console.log(data);
+
+	
 
   return (
     <>
     <h1>Calendar transfer</h1>
     <h2>Course: </h2>
-		<p>testing</p>
+		<p>{String(data[0].id)}</p>
     <table class="table">
         <thead>
             <tr>
