@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
-import eventsArray from './misc'
+import jsonToObject from './misc'
 import GenerateTable from './table'
 import handleClick from './click'
 
@@ -37,6 +37,15 @@ function App() {
 	}, [])
 	console.log(data);
 
+	function jsonToObject(jsonArray) {
+		let objArray = [];
+		for (let i = 0; i < jsonArray.length; i++) {
+		  const reqEvent = new Event(jsonArray[i].id, jsonArray[i].columns[0], jsonArray[i].columns[7], jsonArray[i].columns[1], jsonArray[i].startdate + "T" + jsonArray[i].starttime + ":00Z", jsonArray[i].enddate + "T" + jsonArray[i].endtime + ":00Z");
+		  objArray.push(reqEvent);
+		}
+		return objArray;
+	  }
+	const eventsArray = jsonToObject(data);
 	
 
   return (
