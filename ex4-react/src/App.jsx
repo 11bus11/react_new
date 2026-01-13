@@ -113,7 +113,7 @@ function App() {
 		}
 		postData(jsonData);
 		
-		alert("Sent! (in theory, not in practice)" + eventsArray[0].description); //confirmation that the function was run
+		alert("Sent! (in theory, not in practice)"); //confirmation that the function was run
 	}
 
 	//post request to canvas. Not currently working, but here to explain the concept
