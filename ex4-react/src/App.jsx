@@ -116,7 +116,7 @@ const eventsArray = [];
 		}
 		postData(jsonData);
 		
-		alert(eventsArray[1].description);
+		alert("Sent! (in theory, not in practice)");
 	}
 
 	
