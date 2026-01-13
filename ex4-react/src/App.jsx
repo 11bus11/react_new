@@ -93,7 +93,11 @@ function App() {
 	function handle() {
 		for (let i = 0; i < eventsArray.length; i++) {
 			let newComment = document.getElementById("input" + i).value;
-			eventsArray[i].description = (eventsArray[i].description + " Comment: " + newComment)
+			if (newComment == "") {
+				break
+			} else {
+				eventsArray[i].description = (eventsArray[i].description + " Comment: " + newComment)
+			}
 			var jsonData = {
 				"calendar_event": [
 					{
@@ -109,7 +113,7 @@ function App() {
 		}
 		postData(jsonData);
 		
-		alert("Sent! (in theory, not in practice)"); //confirmation that the function was run
+		alert("Sent! (in theory, not in practice)" + eventsArray[0].description); //confirmation that the function was run
 	}
 
 	//post request to canvas. Not currently working, but here to explain the concept
