@@ -2,9 +2,6 @@ import { useEffect, useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
-import jsonToObject from './misc'
-import GenerateTable from './table'
-import handleClick from './click'
 
 
 	
@@ -17,6 +14,18 @@ import handleClick from './click'
 function App() {
 	const [data, setData] = useState([]);
 	const [error, setError] = useState(null);
+
+	class Event {
+		constructor(context_code, title, description, location_name, start_at, end_at) {
+			this.context_code = context_code;
+			this.title = title;
+			this.description = description;
+			this.location_name = location_name;
+			this.start_at = start_at;
+			this.end_at = end_at;
+		}
+	}
+
 	useEffect(() =>{
 		async function getData() {
 			try {
@@ -36,23 +45,20 @@ function App() {
 		getData();
 	}, [])
 	console.log(data);
+const eventsArray = [];
 
-	function jsonToObject(jsonArray) {
-		let objArray = [];
-		for (let i = 0; i < jsonArray.length; i++) {
-		  const reqEvent = new Event(jsonArray[i].id, jsonArray[i].columns[0], jsonArray[i].columns[7], jsonArray[i].columns[1], jsonArray[i].startdate + "T" + jsonArray[i].starttime + ":00Z", jsonArray[i].enddate + "T" + jsonArray[i].endtime + ":00Z");
-		  objArray.push(reqEvent);
-		}
-		return objArray;
-	  }
-	const eventsArray = jsonToObject(data);
+		for (let i = 0; i < data.length; i++) {
+			const reqEvent = new Event(data[i].id, data[i].columns[0], data[i].columns[7], data[i].columns[1], data[i].startdate + "T" + data[i].starttime + ":00Z", data[i].enddate + "T" + data[i].endtime + ":00Z");
+			eventsArray.push(reqEvent);
+			}
+
 	
 
   return (
     <>
     <h1>Calendar transfer</h1>
     <h2>Course: </h2>
-		<p>{String(data[0].id)}</p>
+		<p>{}</p>
     <table class="table">
         <thead>
             <tr>
