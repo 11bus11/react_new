@@ -8,7 +8,8 @@ function App() {
 
 	//event class constructor
 	class Event {
-		constructor(context_code, title, description, location_name, start_at, end_at) {
+		constructor(course, context_code, title, description, location_name, start_at, end_at) {
+			this.course = course;
 			this.context_code = context_code;
 			this.title = title;
 			this.description = description;
@@ -41,18 +42,22 @@ function App() {
 
 	//create array of Event objects (using data from TimeEdit)
 	const eventsArray = [];
-		for (let i = 0; i < data.length; i++) {
-			const reqEvent = new Event(data[i].id, data[i].columns[0], data[i].columns[7], data[i].columns[1], data[i].startdate + "T" + data[i].starttime + ":00Z", data[i].enddate + "T" + data[i].endtime + ":00Z");
-			eventsArray.push(reqEvent);
-			}
-
+	let course_id = "";
+	for (let i = 0; i < data.length; i++) {
+		const reqEvent = new Event(data[i].columns[2], data[i].id, data[i].columns[0], data[i].columns[7], data[i].columns[1], data[i].startdate + "T" + data[i].starttime + ":00Z", data[i].enddate + "T" + data[i].endtime + ":00Z");
+		eventsArray.push(reqEvent);
+		if (i == 0) {
+			course_id = data[0].columns[2];
+		}
+	}
+	
+	
 	
 
   return (
     <>
     <h1>Calendar transfer</h1>
-    <h2>Course: Who knows</h2>
-		<p>{}</p>
+    <h2>Course: {course_id}</h2>
     <table class="table">
         <thead>
             <tr>
