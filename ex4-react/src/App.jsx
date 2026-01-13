@@ -1,21 +1,12 @@
 import { useEffect, useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
 import secret from './secret'
-
-
-	
-  	
-	//document.getElementById("btn0").addEventListener(handleClick, alert(newComment);)
-
-
-//useEffects for async
 
 function App() {
 	const [data, setData] = useState([]);
 	const [error, setError] = useState(null);
 
+	//event class constructor
 	class Event {
 		constructor(context_code, title, description, location_name, start_at, end_at) {
 			this.context_code = context_code;
@@ -27,6 +18,7 @@ function App() {
 		}
 	}
 
+	//getting data from TimeEdit
 	useEffect(() =>{
 		async function getData() {
 			try {
@@ -46,8 +38,9 @@ function App() {
 		getData();
 	}, [])
 	console.log(data);
-const eventsArray = [];
 
+	//create array of Event objects (using data from TimeEdit)
+	const eventsArray = [];
 		for (let i = 0; i < data.length; i++) {
 			const reqEvent = new Event(data[i].id, data[i].columns[0], data[i].columns[7], data[i].columns[1], data[i].startdate + "T" + data[i].starttime + ":00Z", data[i].enddate + "T" + data[i].endtime + ":00Z");
 			eventsArray.push(reqEvent);
@@ -58,7 +51,7 @@ const eventsArray = [];
   return (
     <>
     <h1>Calendar transfer</h1>
-    <h2>Course: </h2>
+    <h2>Course: Who knows</h2>
 		<p>{}</p>
     <table class="table">
         <thead>
@@ -76,17 +69,17 @@ const eventsArray = [];
 					{eventsArray.map((eventsArray, index) => (
 						<tr key={index}>
 							<td>{(index+1)}</td>
-							<td>event {eventsArray.title}</td>
-							<td>event {eventsArray.description}</td>
+							<td>{eventsArray.title}</td>
+							<td>{eventsArray.description}</td>
 							<td>
 								<div class="form-group">
                   <input type="comment" id={("input" + index)} class="form-control" placeholder="Comment"></input>
-                  <button type="button" id={("btn" + index)} class="btn btn-primary" >send</button>
+                  
               	</div>
 							</td>
-							<td>event {eventsArray.location_name}</td>
-							<td>event {eventsArray.start_at}</td>
-							<td>event {eventsArray.end_at}</td>
+							<td>{eventsArray.location_name}</td>
+							<td>{eventsArray.start_at}</td>
+							<td>{eventsArray.end_at}</td>
 						</tr>
 								
 									))}
@@ -96,7 +89,7 @@ const eventsArray = [];
     <button type="button" id="saveBtn" class="btn btn-primary" onClick={() => handle()}>send</button>
     </>
   )
-
+  	//updating event objects and triggering the post request
 	function handle() {
 		for (let i = 0; i < eventsArray.length; i++) {
 			let newComment = document.getElementById("input" + i).value;
@@ -116,10 +109,10 @@ const eventsArray = [];
 		}
 		postData(jsonData);
 		
-		alert("Sent! (in theory, not in practice)");
+		alert("Sent! (in theory, not in practice)"); //confirmation that the function was run
 	}
 
-	
+	//post request to canvas. Not currently working, but here to explain the concept
 	async function postData(event) {
 		return fetch('https://canvas.instructure.com/api/v1/calendar_events?access_token=$' + secret, {
 		method: 'POST',
